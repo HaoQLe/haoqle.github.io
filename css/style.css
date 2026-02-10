@@ -1,0 +1,544 @@
+/* ==========================================================================
+   Custom Properties (Theming)
+   ========================================================================== */
+
+:root {
+  --bg: #ffffff;
+  --bg-secondary: #f7f7f9;
+  --text: #36363c;
+  --text-strong: #1a1a2e;
+  --text-muted: #777777;
+  --accent: #007bff;
+  --selection: #ffdc00;
+  --border: #e2e2e8;
+  --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  --card-shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="dark"] {
+  --bg: #171c28;
+  --bg-secondary: #1e2436;
+  --text: #afafbf;
+  --text-strong: #e7e7e7;
+  --text-muted: #8888a0;
+  --accent: #5eaaff;
+  --selection: #ffdc00;
+  --border: #2a2f40;
+  --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  --card-shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.35);
+}
+
+/* ==========================================================================
+   Base / Reset
+   ========================================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+::selection {
+  background: var(--selection);
+  color: #1a1a2e;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    Roboto, Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  font-weight: 600;
+  transition: all 0.2s ease-in-out;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+img {
+  max-width: 100%;
+}
+
+strong {
+  font-weight: 700;
+  color: var(--text-strong);
+}
+
+/* ==========================================================================
+   Theme Toggle
+   ========================================================================== */
+
+.theme-toggle {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  z-index: 100;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  color: var(--text);
+  opacity: 0.7;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.theme-toggle:hover {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+.theme-toggle .moon {
+  display: none;
+}
+
+[data-theme="dark"] .theme-toggle .sun {
+  display: none;
+}
+
+[data-theme="dark"] .theme-toggle .moon {
+  display: block;
+}
+
+/* ==========================================================================
+   Intro / Hero
+   ========================================================================== */
+
+.intro {
+  padding: 120px 100px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  gap: 24px;
+}
+
+.intro__hello {
+  font-size: 2.5rem;
+  font-weight: 300;
+  margin: 0;
+  color: var(--text-strong);
+}
+
+.intro__tagline {
+  font-size: 2.5rem;
+  font-weight: 300;
+  margin: 0;
+  max-width: 700px;
+  color: var(--text);
+}
+
+.intro__tagline .name {
+  font-weight: 700;
+  color: var(--text-strong);
+}
+
+.intro__contact {
+  font-size: 1.2rem;
+  font-weight: 400;
+  margin: 0;
+  color: var(--text);
+}
+
+.intro__contact .arrow {
+  margin: 0 8px;
+}
+
+.highlight-link {
+  display: inline-block;
+  padding: 2px 4px;
+  font-weight: 400;
+  box-shadow: inset 0 -3px 0 var(--accent);
+  transition: box-shadow 0.2s ease, color 0.2s ease;
+}
+
+.highlight-link:hover {
+  box-shadow: inset 0 -33px 0 0 var(--accent);
+  color: #ffffff;
+}
+
+/* ==========================================================================
+   Section Layout
+   ========================================================================== */
+
+.section {
+  display: flex;
+  justify-content: center;
+  padding: 80px 120px;
+}
+
+.section__title {
+  flex-shrink: 0;
+  width: 180px;
+  margin-right: 60px;
+  color: var(--accent);
+  text-transform: uppercase;
+  text-align: right;
+  font-weight: 700;
+  font-size: 0.9rem;
+  letter-spacing: 2px;
+  padding-top: 4px;
+}
+
+.section__content {
+  font-weight: 300;
+  font-size: 1rem;
+  width: 100%;
+  max-width: 620px;
+}
+
+.section__content p {
+  margin-top: 0;
+  margin-bottom: 24px;
+}
+
+/* Underline link effect */
+.underline-link {
+  position: relative;
+  display: inline-block;
+}
+
+.underline-link::after {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: var(--text-strong);
+  content: '';
+  opacity: 0;
+  transition: height 0.3s, opacity 0.3s, transform 0.3s;
+  transform: translateY(-5px);
+}
+
+.underline-link:hover::after,
+.underline-link:focus::after {
+  height: 2px;
+  border-radius: 3px;
+  opacity: 1;
+  transform: translateY(-2px);
+}
+
+/* Arrow link */
+.arrow-link {
+  font-weight: 700;
+  font-size: 1.1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text-strong);
+  transition: all 0.2s ease-in-out;
+}
+
+.arrow-link::after {
+  content: '\2192';
+  transition: transform 0.2s ease-in-out;
+}
+
+.arrow-link:hover::after {
+  transform: translateX(6px);
+}
+
+/* ==========================================================================
+   Skills
+   ========================================================================== */
+
+.skillz {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.skillz__category__label {
+  font-weight: 700;
+  color: var(--text-strong);
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+
+.skillz__category li {
+  margin: 4px 0;
+  font-size: 0.9rem;
+}
+
+/* ==========================================================================
+   Experience
+   ========================================================================== */
+
+.jobs {
+  margin-bottom: 40px;
+}
+
+.job {
+  margin-bottom: 24px;
+}
+
+.job__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.job__company {
+  font-weight: 700;
+}
+
+.job__time {
+  font-size: 0.85rem;
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--text-muted);
+  white-space: nowrap;
+  margin-left: 16px;
+}
+
+.job__position {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+}
+
+/* ==========================================================================
+   Projects
+   ========================================================================== */
+
+.project-cards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+.project-card {
+  display: block;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 28px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  color: var(--text);
+}
+
+.project-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--card-shadow-hover);
+}
+
+.project-card__name {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--text-strong);
+  margin-bottom: 8px;
+}
+
+.project-card__desc {
+  margin: 0 0 16px;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.project-card__tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.project-card__tech span {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 2px 8px;
+}
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+
+.footer {
+  padding: 50px 80px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer__copyright {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--text-strong);
+}
+
+.footer__links {
+  display: flex;
+  gap: 20px;
+}
+
+.footer__links a {
+  color: var(--text-muted);
+  transition: color 0.2s ease, transform 0.2s ease;
+  display: flex;
+}
+
+.footer__links a:hover {
+  color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.footer__links svg {
+  width: 22px;
+  height: 22px;
+}
+
+/* ==========================================================================
+   Scroll to Top
+   ========================================================================== */
+
+#top-button {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--text-muted);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, transform 0.2s ease, visibility 0.3s ease;
+  padding: 4px;
+}
+
+#top-button.visible {
+  opacity: 0.7;
+  visibility: visible;
+}
+
+#top-button:hover {
+  opacity: 1;
+  transform: translateY(-4px);
+}
+
+/* ==========================================================================
+   Scroll Animations
+   ========================================================================== */
+
+.waypoint {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s cubic-bezier(0.694, 0, 0.335, 1),
+              transform 0.6s cubic-bezier(0.694, 0, 0.335, 1);
+}
+
+.waypoint.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+
+@media screen and (max-width: 1024px) {
+  .intro {
+    padding: 100px 70px;
+  }
+  .section {
+    padding: 60px 60px;
+  }
+  .section__title {
+    width: 150px;
+    margin-right: 40px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .intro {
+    padding: 80px 50px;
+  }
+  .intro__hello,
+  .intro__tagline {
+    font-size: 2rem;
+  }
+  .section {
+    display: block;
+    padding: 50px 50px;
+  }
+  .section__title {
+    text-align: left;
+    width: auto;
+    margin-right: 0;
+    margin-bottom: 20px;
+  }
+  .section__content {
+    max-width: 100%;
+    padding-left: 24px;
+  }
+  .skillz {
+    flex-wrap: wrap;
+  }
+  .skillz__category {
+    width: 45%;
+    margin-bottom: 20px;
+  }
+  .job__header {
+    display: block;
+  }
+  .job__time {
+    margin-left: 0;
+  }
+  .footer {
+    display: block;
+    text-align: center;
+    padding: 40px 30px;
+  }
+  .footer__copyright {
+    margin-bottom: 20px;
+  }
+  .footer__links {
+    justify-content: center;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .intro {
+    padding: 60px 30px;
+    min-height: 90vh;
+  }
+  .intro__hello,
+  .intro__tagline {
+    font-size: 1.6rem;
+  }
+  .intro__contact {
+    font-size: 1rem;
+  }
+  .section {
+    padding: 40px 30px;
+  }
+  .section__content {
+    padding-left: 16px;
+  }
+  .skillz__category {
+    width: 100%;
+  }
+  .theme-toggle {
+    top: 16px;
+    right: 16px;
+  }
+}
